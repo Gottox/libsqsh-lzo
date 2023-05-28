@@ -1,0 +1,7 @@
+option(
+    'test',
+    type: 'combo',
+    choices: ['true', 'false', 'extended'],
+    value: 'false',
+    description: 'Run tests.',
+)
