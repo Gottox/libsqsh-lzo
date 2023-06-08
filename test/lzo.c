@@ -22,7 +22,6 @@
 
 #include <assert.h>
 #include <sqsh_extract_private.h>
-#include <sqsh_lzo.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,7 +30,6 @@ int
 main(int argc, char *argv[]) {
 	(void)argc;
 	(void)argv;
-	sqsh_lzo_support();
 
 	uint8_t input[] = {0x15, 0x61, 0x62, 0x63, 0x64, 0x11, 0x00, 0x00};
 

@@ -14,8 +14,5 @@ libsqsh_lzo = library(
     dependencies: libsqsh_lzo_deps,
     version: meson.project_version(),
     soversion: meson.project_version().split('.')[0],
-    include_directories: [
-        libsqsh_lzo_include,
-    ],
 )
 

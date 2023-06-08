@@ -18,17 +18,11 @@ project(
 libsqsh_dep = subproject('libsqsh').get_variable('libsqsh_dep')
 lzo = dependency('lzo2')
 
-subdir('include')
 
 subdir('lib')
 
-if get_option('default_library') == 'both'
-    libsqsh_lzo = libsqsh_lzo.get_static_lib()
-endif
-
 libsqsh_lzo_dep = declare_dependency(
     link_with: libsqsh_lzo,
-    include_directories: libsqsh_lzo_include,
 )
 
 if get_option('test') != 'false'

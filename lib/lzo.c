@@ -24,7 +24,6 @@
 
 #include <sqsh_error.h>
 #include <sqsh_extract_private.h>
-#include <sqsh_lzo.h>
 
 #include <lzo/lzo1x.h>
 
@@ -110,8 +109,4 @@ const struct SqshExtractorImpl impl_lzo = {
 		.finish = sqsh__impl_lzo_finish,
 };
 
-int
-sqsh_lzo_support(void) {
-	sqsh__impl_lzo = &impl_lzo;
-	return 0;
-}
+const struct SqshExtractorImpl *const sqsh__impl_lzo = &impl_lzo;
