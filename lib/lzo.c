@@ -20,17 +20,12 @@
  * @file         lzo.c
  */
 
-#define _GNU_SOURCE
-
 #include <sqsh_error.h>
 #include <sqsh_extract_private.h>
 
 #include <lzo/lzo1x.h>
 
 struct SqshLzoContext {
-	/**
-	 * @privatesection
-	 */
 	struct SqshBuffer buffer;
 	const uint8_t *compressed;
 	size_t compressed_size;
@@ -39,7 +34,7 @@ struct SqshLzoContext {
 SQSH_STATIC_ASSERT(
 		sizeof(sqsh__extractor_context_t) >= sizeof(struct SqshLzoContext));
 
-int
+static int
 sqsh__impl_lzo_init(void *context, uint8_t *target, size_t target_size) {
 	(void)target;
 	(void)target_size;
@@ -57,7 +52,7 @@ out:
 	return rv;
 }
 
-int
+static int
 sqsh__impl_lzo_extract(
 		void *context, const uint8_t *compressed,
 		const size_t compressed_size) {
@@ -103,7 +98,7 @@ sqsh__impl_lzo_finish(void *context, uint8_t *target, size_t *target_size) {
 	}
 }
 
-const struct SqshExtractorImpl impl_lzo = {
+static const struct SqshExtractorImpl impl_lzo = {
 		.init = sqsh__impl_lzo_init,
 		.extract = sqsh__impl_lzo_extract,
 		.finish = sqsh__impl_lzo_finish,
