@@ -1,0 +1,8 @@
+[wrap-file]
+directory = libsqsh-0.5.0
+source_url = https://github.com/Gottox/libsqsh/archive/refs/tags/v0.5.0.tar.gz
+source_filename = libsqsh-0.5.0.tar.gz
+source_hash = cd1cb2dee16082b90dcfe4793620fa48983229b6d94e00bdd5679c7e33fc0e9d
+
+[provide]
+libsqsh = libsqsh_dep
