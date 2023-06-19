@@ -19,7 +19,7 @@ environment variable to the path of the libsqsh-lzo.so library. For example:
 LD_PRELOAD=/usr/local/lib/libsqsh-lzo.so sqsh-ls /path/to/archive.squashfs
 ```
 
-If the archive uses LZO compression, you should be abled to extract the archive.
+If the archive uses LZO compression, you should be able to extract the archive.
 
 ### linking against libsqsh-lzo:
 
@@ -27,7 +27,8 @@ To link against libsqsh-lzo you need to link against libsqsh and liblzo2. For
 example:
 
 ```
-gcc -o sqsh-ls sqsh-ls.c -lsqsh-lzo -lsqsh -llzo2
+cd libsqsh
+cc tools/ls.c tools/common.c -lsqsh-lzo -lsqsh -llzo2 -Lbuild/lib -L../libsqsh-lzo/build/lib -o sqsh-ls
 ```
 
 ## Building:
