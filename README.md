@@ -46,4 +46,4 @@ ninja -C build
 libsqsh-lzo is licensed under the GPLv2. See the LICENSE file for more details.
 
 Keep in mind, that libsqsh itself is BSD licensed. The implications of this are
-kept as a exercise for the reader.
+kept as an exercise for the reader.
