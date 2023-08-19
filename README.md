@@ -37,7 +37,7 @@ libsqsh-lzo uses [meson](https://mesonbuild.com/) as build system. To build it
 you need to have meson and ninja installed. Then run:
 
 ```
-meson build 
+meson setup build 
 ninja -C build
 ```
 
