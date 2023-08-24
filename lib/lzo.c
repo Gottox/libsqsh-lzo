@@ -20,88 +20,61 @@
  * @file         lzo.c
  */
 
+#include <cextras/collection.h>
 #include <sqsh_error.h>
 #include <sqsh_extract_private.h>
 
 #include <lzo/lzo1x.h>
 
-struct SqshLzoContext {
-	struct SqshBuffer buffer;
-	const uint8_t *compressed;
-	size_t compressed_size;
-};
-
 SQSH_STATIC_ASSERT(
-		sizeof(sqsh__extractor_context_t) >= sizeof(struct SqshLzoContext));
+		sizeof(sqsh__extractor_context_t) >= sizeof(struct CxBuffer));
 
 static int
-sqsh__impl_lzo_init(void *context, uint8_t *target, size_t target_size) {
+sqshlzo_impl_init(void *context, uint8_t *target, size_t target_size) {
 	(void)target;
 	(void)target_size;
-	int rv = 0;
-	struct SqshLzoContext *buffering = context;
-
-	rv = sqsh__buffer_init(&buffering->buffer);
+	int rv = cx_buffer_init(context);
 	if (rv < 0) {
 		goto out;
 	}
-	buffering->compressed = NULL;
-	buffering->compressed_size = 0;
-
+	rv = cx_buffer_add_capacity(context, NULL, target_size);
+	if (rv < 0) {
+		goto out;
+	}
 out:
 	return rv;
 }
 
 static int
-sqsh__impl_lzo_extract(
+sqshlzo_impl_extract(
 		void *context, const uint8_t *compressed,
 		const size_t compressed_size) {
-	int rv = 0;
-	struct SqshLzoContext *buffering = context;
-	if (buffering->compressed == NULL &&
-		sqsh__buffer_size(&buffering->buffer) == 0) {
-		buffering->compressed = compressed;
-		buffering->compressed_size = compressed_size;
-		return 0;
-	} else if (sqsh__buffer_size(&buffering->buffer) == 0) {
-		rv = sqsh__buffer_append(
-				&buffering->buffer, buffering->compressed,
-				buffering->compressed_size);
-		if (rv < 0) {
-			return rv;
-		}
-	}
-
-	rv = sqsh__buffer_append(&buffering->buffer, compressed, compressed_size);
-	if (rv < 0) {
-		return rv;
-	}
-	buffering->compressed = sqsh__buffer_data(&buffering->buffer);
-	buffering->compressed_size = sqsh__buffer_size(&buffering->buffer);
-
-	return rv;
+	return cx_buffer_append(context, compressed, compressed_size);
 }
 
 static int
-sqsh__impl_lzo_finish(void *context, uint8_t *target, size_t *target_size) {
-	int rv;
-	struct SqshLzoContext *buffering = context;
+sqshlzo_impl_finish(void *context, uint8_t *target, size_t *target_size) {
+	int rv = 0;
 	char wrkmem[LZO1X_1_MEM_COMPRESS] = {0};
-	const uint8_t *compressed = buffering->compressed;
-	const size_t compressed_size = buffering->compressed_size;
-	rv = lzo1x_decompress_safe(
-			compressed, compressed_size, target, target_size, wrkmem);
-	if (rv != LZO_E_OK) {
-		return -SQSH_ERROR_COMPRESSION_DECOMPRESS;
-	} else {
-		return 0;
+	const uint8_t *data = cx_buffer_data(context);
+	size_t data_size = cx_buffer_size(context);
+
+	int lzo_ret = rv =
+			lzo1x_decompress_safe(data, data_size, target, target_size, wrkmem);
+	if (lzo_ret < 0) {
+		rv = -SQSH_ERROR_COMPRESSION_DECOMPRESS;
+		goto out;
 	}
+
+out:
+	cx_buffer_cleanup(context);
+	return rv;
 }
 
 static const struct SqshExtractorImpl impl_lzo = {
-		.init = sqsh__impl_lzo_init,
-		.extract = sqsh__impl_lzo_extract,
-		.finish = sqsh__impl_lzo_finish,
+		.init = sqshlzo_impl_init,
+		.extract = sqshlzo_impl_extract,
+		.finish = sqshlzo_impl_finish,
 };
 
 const struct SqshExtractorImpl *const sqsh__impl_lzo = &impl_lzo;

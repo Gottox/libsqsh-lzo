@@ -21,7 +21,6 @@ else
 	NINJA = ninja
 endif
 
-MESON_FLAGS += -Ddefault_library=static
 MESON_FLAGS += -Dtest=true
 MESON_FLAGS += -Db_sanatize=address,undefined
 

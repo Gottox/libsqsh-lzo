@@ -21,16 +21,14 @@
  */
 
 #include <assert.h>
-#include <sqsh_extract_private.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sqsh_extract_private.h>
+#include <testlib.h>
 
-int
-main(int argc, char *argv[]) {
-	(void)argc;
-	(void)argv;
-
+void
+test_lzo_extract(void) {
 	uint8_t input[] = {0x15, 0x61, 0x62, 0x63, 0x64, 0x11, 0x00, 0x00};
 
 	int rv;
@@ -49,6 +47,8 @@ main(int argc, char *argv[]) {
 	assert(output_size == 4);
 
 	assert(memcmp(output, "abcd", 4) == 0);
-
-	return 0;
 }
+
+DECLARE_TESTS
+TEST(test_lzo_extract)
+END_TESTS

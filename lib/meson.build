@@ -1,16 +1,14 @@
-libsqsh_lzo_sources = [
-    'lzo.c',
-]
 libsqsh_lzo_deps = [
     lzo,
-    libsqsh_dep,
+    cextras_dep,
 ]
 
-libsqsh_lzo = library(
+libsqsh_lzo = shared_library(
     'sqsh-lzo',
-    libsqsh_lzo_sources,
+    'lzo.c',
     install: not meson.is_subproject(),
     dependencies: libsqsh_lzo_deps,
     version: meson.project_version(),
+    include_directories: libsqsh_include,
 )
 

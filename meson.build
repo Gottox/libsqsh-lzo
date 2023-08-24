@@ -14,7 +14,8 @@ project(
     ],
 )
 
-libsqsh_dep = dependency('libsqsh', version: '>=0.5.0')
+libsqsh_include = subproject('libsqsh').get_variable('libsqsh_include')
+cextras_dep = subproject('cextras').get_variable('cextras_dep')
 lzo = dependency('lzo2')
 
 
