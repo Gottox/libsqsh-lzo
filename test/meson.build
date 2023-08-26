@@ -5,7 +5,7 @@ test = executable(
     'lzo_test',
     sqsh_lzo_test,
     install: false,
-    dependencies: [ libsqsh_lzo_dep, testlib_dep ],
+    dependencies: [ libsqsh_lzo_dep, cextras_dep, testlib_dep ],
     include_directories: libsqsh_include,
 )
 test('lzo.c', test)

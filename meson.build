@@ -18,7 +18,6 @@ libsqsh_include = subproject('libsqsh').get_variable('libsqsh_include')
 cextras_dep = subproject('cextras').get_variable('cextras_dep')
 lzo = dependency('lzo2')
 
-
 subdir('lib')
 
 libsqsh_lzo_dep = declare_dependency(

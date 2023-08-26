@@ -46,7 +46,7 @@ out:
 }
 
 static int
-sqshlzo_impl_extract(
+sqshlzo_impl_write(
 		void *context, const uint8_t *compressed,
 		const size_t compressed_size) {
 	return cx_buffer_append(context, compressed, compressed_size);
@@ -73,7 +73,7 @@ out:
 
 static const struct SqshExtractorImpl impl_lzo = {
 		.init = sqshlzo_impl_init,
-		.extract = sqshlzo_impl_extract,
+		.write = sqshlzo_impl_write,
 		.finish = sqshlzo_impl_finish,
 };
 

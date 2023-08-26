@@ -39,7 +39,7 @@ test_lzo_extract(void) {
 
 	rv = impl->init(context, output, output_size);
 	assert(rv >= 0);
-	rv = impl->extract(context, input, sizeof(input));
+	rv = impl->write(context, input, sizeof(input));
 	assert(rv >= 0);
 	rv = impl->finish(context, output, &output_size);
 	assert(rv >= 0);
