@@ -21,10 +21,10 @@
  */
 
 #include <assert.h>
+#include <sqsh_extract_private.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sqsh_extract_private.h>
 #include <testlib.h>
 
 void
