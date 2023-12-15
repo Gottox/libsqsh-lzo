@@ -77,4 +77,4 @@ static const struct SqshExtractorImpl impl_lzo = {
 		.finish = sqshlzo_impl_finish,
 };
 
-const struct SqshExtractorImpl *const sqsh__impl_lzo = &impl_lzo;
+const struct SqshExtractorImpl *const volatile sqsh__impl_lzo = &impl_lzo;

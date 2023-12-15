@@ -1,0 +1,8 @@
+[wrap-file]
+directory = sqsh-tools-1.3.0
+source_url = https://github.com/Gottox/sqsh-tools/archive/refs/tags/v1.3.0.tar.gz
+source_filename = sqsh-tools-1.3.0.tar.gz
+source_hash = 660d20cb2360d80f641b0a8b4f28226054b6ce761d88d3b8e35565a854cdb696
+
+[provide]
+libsqsh = libsqsh_dep

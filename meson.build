@@ -14,7 +14,11 @@ project(
     ],
 )
 
-libsqsh_include = subproject('libsqsh').get_variable('libsqsh_include')
+libsqsh_include = [
+    subproject('sqsh-tools').get_variable('libsqsh_include'),
+    subproject('sqsh-tools').get_variable('libsqsh_private_include'),
+    subproject('sqsh-tools').get_variable('libsqsh_common_include'),
+]
 cextras_dep = subproject('cextras').get_variable('cextras_dep')
 lzo = dependency('lzo2')
 
