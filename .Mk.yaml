@@ -1,0 +1,5 @@
+# https://github.com/Gottox/mk
+configure:
+  - -Dwerror=true
+  - -Dtest=true
+default: test
