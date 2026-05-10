@@ -1,2 +1,9 @@
-[wrap-redirect]
-filename = sqsh-tools-1.4.0/subprojects/cextras.wrap
+[wrap-git]
+directory = cextras
+revision = 58b52dee4d1077e86d007832a609b695868de7d6
+url = https://codeberg.org/Gottox/cextras.git
+depth = 1
+
+[provide]
+cextras=cextras_dep
+testlib=testlib_dep

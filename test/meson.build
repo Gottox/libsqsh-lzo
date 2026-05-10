@@ -28,7 +28,8 @@ integration_depends = [integration_image, sqsh_ls]
 test(
     'integration',
     integration_test,
-    env: integration_env + {
+    env: integration_env
+    + {
         'LIBSQSH_LZO': libsqsh_lzo.full_path(),
     },
     depends: integration_depends,

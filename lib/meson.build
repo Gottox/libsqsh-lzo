@@ -13,4 +13,3 @@ libsqsh_lzo = shared_library(
         libsqsh_include,
     ],
 )
-

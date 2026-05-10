@@ -1,8 +1,8 @@
-[wrap-file]
-directory = sqsh-tools-1.4.0
-source_url = https://github.com/Gottox/sqsh-tools/archive/refs/tags/v1.4.0.tar.gz
-source_filename = sqsh-tools-1.4.0.tar.gz
-source_hash = 1e4c08d0812124c95c6d16f93b3b5f0bf1915b9beb2420b28a42702ab2cdcaeb
+[wrap-git]
+directory = sqsh-tools
+revision = 35068bd4532b8c31c51e6c50efa2fda38b42b9a3
+url = https://codeberg.org/Gottox/sqsh-tools.git
+depth = 1
 
 [provide]
 libsqsh = libsqsh_dep
