@@ -33,7 +33,8 @@ static int
 sqshlzo_impl_init(void *context, uint8_t *target, size_t target_size) {
 	(void)target;
 	(void)target_size;
-	int rv = cx_buffer_init(context);
+	struct CxBuffer *buffer = (struct CxBuffer *)context;
+	int rv = cx_buffer_init(buffer);
 	if (rv < 0) {
 		goto out;
 	}
@@ -49,15 +50,17 @@ static int
 sqshlzo_impl_write(
 		void *context, const uint8_t *compressed,
 		const size_t compressed_size) {
-	return cx_buffer_append(context, compressed, compressed_size);
+	struct CxBuffer *buffer = (struct CxBuffer *)context;
+	return cx_buffer_append(buffer, compressed, compressed_size);
 }
 
 static int
 sqshlzo_impl_finish(void *context, uint8_t *target, size_t *target_size) {
+	struct CxBuffer *buffer = (struct CxBuffer *)context;
 	int rv = 0;
 	char wrkmem[LZO1X_1_MEM_COMPRESS] = {0};
-	const uint8_t *data = cx_buffer_data(context);
-	size_t data_size = cx_buffer_size(context);
+	const uint8_t *data = cx_buffer_data(buffer);
+	size_t data_size = cx_buffer_size(buffer);
 
 	int lzo_ret = rv =
 			lzo1x_decompress_safe(data, data_size, target, target_size, wrkmem);
@@ -67,7 +70,7 @@ sqshlzo_impl_finish(void *context, uint8_t *target, size_t *target_size) {
 	}
 
 out:
-	cx_buffer_cleanup(context);
+	cx_buffer_cleanup(buffer);
 	return rv;
 }
 
